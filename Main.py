@@ -18,8 +18,8 @@ from keras.layers import Convolution2D, MaxPooling2D
 
 np.random.seed(1337)  # for reproducibility
 
-img_rows = 224
-img_cols = 224
+img_rows = 100
+img_cols = 100
 nb_class = 2
 
 nb_filters = 32
