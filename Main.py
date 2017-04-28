@@ -27,7 +27,7 @@ nb_conv = 3
 nb_pool = 2
 
 bath_size = 256
-nb_epoch = 45
+nb_epoch = 31
 split = 0.3
 
 pathTrain = ('../Dogs vs Cats/train/')
@@ -118,6 +118,9 @@ def CNN_Model4Couches(img_rows, img_cols, color_type=1):
   model.add(Dropout(0.25))
 
   model.add(Flatten())
+  model.add(Dense(256))
+  model.add(Activation('relu'))
+  model.add(Dropout(0.5))
   model.add(Dense(128))
   model.add(Activation('relu'))
   model.add(Dropout(0.5))
