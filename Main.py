@@ -15,8 +15,13 @@ import csv
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
+from keras.wrappers.scikit_learn import KerasClassifier
+
 
 np.random.seed(1337)  # for reproducibility
+seed = 1337
 
 img_rows = 100
 img_cols = 100
@@ -212,17 +217,23 @@ print "X_test : ", X_test.shape
 
 
 
-model =  CNN_Model4Couches(img_rows, img_cols, 1)
-model.fit(X_train, Y_train, batch_size=bath_size,
-          nb_epoch=nb_epoch, verbose=1, validation_split=split, shuffle=True)
+#model =  CNN_Model4Couches(img_rows, img_cols, 1)
+#model.fit(X_train, Y_train, batch_size=bath_size,
+#          nb_epoch=nb_epoch, verbose=1, validation_split=split, shuffle=True)
 
-result = model.predict_classes(X_train)
+estimator = KerasClassifier(build_fn=CNN_Model4Couches, nb_epoch=nb_epoch, bact_size = batch_size, verbose = 1)
+#
+Kfold = KFold(n_splits = split, shuffle=True, random_state=seed)
+
+#result = model.predict_classes(X_train)
+results = cross_val_score(estimator, X_train, Y_train, cv=Kfold)
+
 print "result = ", result
 
-score = model.evaluate(X_train, Y_train, verbose=0)
-print "\nTest accuracy : ", str(score[1])
+#score = model.evaluate(X_train, Y_train, verbose=0)
+#print "\nTest accuracy : ", str(score[1])
 
-prob_result = model.predict(X_test)
+#prob_result = model.predict(X_test)
 #result = model.predict_classes(X_test)
 # print prob_result
 #print result
