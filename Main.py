@@ -16,6 +16,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 
+np.random.seed(1337)  # for reproducibility
+
 img_rows = 224
 img_cols = 224
 nb_class = 2
@@ -25,7 +27,7 @@ nb_conv = 3
 nb_pool = 2
 
 bath_size = 256
-nb_epoch = 20
+nb_epoch = 45
 split = 0.3
 
 pathTrain = ('../Dogs vs Cats/train/')
