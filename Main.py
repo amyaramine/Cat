@@ -32,7 +32,7 @@ nb_conv = 3
 nb_pool = 2
 
 bath_size = 256
-nb_epoch = 50
+nb_epoch = 150
 split = 0.3
 
 pathTrain = ('../Dogs vs Cats/train/')
