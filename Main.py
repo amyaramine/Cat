@@ -137,9 +137,9 @@ def CNN_Model4Couches(img_rows, img_cols, color_type=1):
   model.add(Dropout(0.25))
 
   model.add(Flatten())
-  model.add(Dense(256))
-  model.add(Activation('relu'))
-  model.add(Dropout(0.5))
+#  model.add(Dense(256))
+#  model.add(Activation('relu'))
+#  model.add(Dropout(0.5))
   model.add(Dense(128))
   model.add(Activation('relu'))
   model.add(Dropout(0.5))
@@ -231,7 +231,7 @@ print "X_test : ", X_test.shape
 
 
 
-model =  larger_model(img_rows, img_cols, 1)
+model =  CNN_Model4Couches(img_rows, img_cols, 1)
 model.fit(X_train, Y_train, batch_size=bath_size,
           nb_epoch=nb_epoch, verbose=1, validation_split=split, shuffle=True)
 
