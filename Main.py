@@ -52,6 +52,20 @@ def get_im(path, img_rows, img_cols, color_type=1):
 
     return resized
 
+
+
+def save_model(model, index, cross=''):
+    json_string = model.to_json()
+    if not os.path.isdir('cache'):
+        os.mkdir('cache')
+    json_name = 'architecture' + str(index) + cross + '.json'
+    weight_name = 'model_weights' + str(index) + cross + '.h5'
+    open(os.path.join('cache', json_name), 'w').write(json_string)
+    model.save_weights(os.path.join('cache', weight_name), overwrite=True)
+
+
+
+
 def larger_model(img_rows, imgcols, color_type=1):
     # create model
     model = Sequential()
@@ -217,23 +231,24 @@ print "X_test : ", X_test.shape
 
 
 
-#model =  CNN_Model4Couches(img_rows, img_cols, 1)
-#model.fit(X_train, Y_train, batch_size=bath_size,
-#          nb_epoch=nb_epoch, verbose=1, validation_split=split, shuffle=True)
+model =  larger_model(img_rows, img_cols, 1)
+model.fit(X_train, Y_train, batch_size=bath_size,
+          nb_epoch=nb_epoch, verbose=1, validation_split=split, shuffle=True)
 
-estimator = KerasClassifier(build_fn=CNN_Model4Couches, nb_epoch=nb_epoch, bact_size = batch_size, verbose = 1)
+model.save_weights('larger_model.h5', overwrite = True)
+#estimator = KerasClassifier(build_fn=CNN_Model4Couches, nb_epoch=nb_epoch, bact_size = batch_size, verbose = 1)
 #
-Kfold = KFold(n_splits = split, shuffle=True, random_state=seed)
+#Kfold = KFold(n_splits = split, shuffle=True, random_state=seed)
 
-#result = model.predict_classes(X_train)
-results = cross_val_score(estimator, X_train, Y_train, cv=Kfold)
+result = model.predict_classes(X_train)
+#results = cross_val_score(estimator, X_train, Y_train, cv=Kfold)
 
 print "result = ", result
 
-#score = model.evaluate(X_train, Y_train, verbose=0)
-#print "\nTest accuracy : ", str(score[1])
+score = model.evaluate(X_train, Y_train, verbose=0)
+print "\nTest accuracy : ", str(score[1])
 
-#prob_result = model.predict(X_test)
+prob_result = model.predict(X_test)
 #result = model.predict_classes(X_test)
 # print prob_result
 #print result
