@@ -23,8 +23,8 @@ from keras.wrappers.scikit_learn import KerasClassifier
 np.random.seed(1337)  # for reproducibility
 seed = 1337
 
-img_rows = 100
-img_cols = 100
+img_rows = 224
+img_cols = 224
 nb_class = 2
 
 nb_filters = 32
