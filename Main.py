@@ -208,6 +208,7 @@ print "Y_train : ", Y_train.shape
 print "Load Test data"
 pathTest = "../Dogs vs Cats/test/"
 liste = os.listdir(pathTest)
+liste = sorted(liste, key=len)
 ImageTest = []
 
 start = time.clock()
